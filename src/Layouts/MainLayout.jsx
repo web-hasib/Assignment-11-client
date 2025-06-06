@@ -6,21 +6,27 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Error from "../pages/Error";
 import Empty from "../pages/Empty";
+import NavBar from "../components/NavBar";
 
 const MainLayout = () => {
   const { user } = use(AuthContext);
   console.log("user from mainlayout ", user);
   return (
     <div>
-      {/* Hello from main layout */}
-      {/* <nav>navbar</nav> */}
+      <h1 className="primary">Hello from main layout</h1>
+     
+        <NavBar></NavBar>
+     
+      <main className="border mx-auto border-black max-w-7xl"> 
+
       <Outlet></Outlet>
-      {/* <footer>footer</footer> */}
-      {/* <Loading></Loading> */}
-      {/* <Register></Register> */}
-      {/* <Login></Login> */}
-      {/* <Error></Error> */}
+      <Loading></Loading>
+      <Register></Register>
+      <Login></Login>
+      <Error></Error>
       <Empty></Empty>
+      </main>
+      <footer>footer</footer>
 
     </div>
   );

@@ -190,7 +190,7 @@ const Register = () => {
                 <a className="link link-hover">Forgot password?</a>
               </div>
               
-              <button type="submit" className="btn btn-neutral mt-4">
+              <button type="submit" className="btn btn-soft border-blue-300 rounded-md px-7 hover:text-white btn-info mt-4">
                 Register
               </button>
             </fieldset>
