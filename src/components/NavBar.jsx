@@ -1,4 +1,8 @@
-import React from "react";
+import React, { use, useState } from "react";
+import { CiLight } from "react-icons/ci";
+import { LuSunMoon } from "react-icons/lu";
+import { AuthContext } from "../provider/AuthProvider";
+import { Link } from "react-router";
 const links = (
   <>
     <li>
@@ -12,6 +16,12 @@ const links = (
 );
 
 const NavBar = () => {
+  const {user}= use(AuthContext);
+  const [theme, setTheme]=useState(false);
+  const handleLogOut = () => {
+    localStorage.removeItem("access-token");
+    window.location.reload();
+  };
   return (
     <div className="bg-base-300/50 sticky top-0 z-1 shadow-sm ">
       <div className="navbar m-0 p-0  max-w-7xl mx-auto">
@@ -41,7 +51,8 @@ const NavBar = () => {
                 {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-2xl primary ">BookShelf</a>
+          <a className="btn btn-ghost text-2xl primary "><img className="w-25 h-30 mb-10
+          " src="https://i.ibb.co/KzFRxwyj/logo-removebg-preview-1.png" alt="" /> BookShelf</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -49,7 +60,38 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className=" btn btn-soft border-blue-300 rounded-full px-7 hover:text-white btn-info">Button</a>
+           <input
+          type='checkbox'
+          value='cupcake'
+          className='toggle theme-controller'
+        />
+           {/* Theme Button */}
+        {/* <button onClick={()=>{
+          setTheme(!theme)
+        }} className="btn  theme-controller rounded-full">
+          {theme === "light" ? (
+            <LuSunMoon size={20} color="black" />
+          ) : (
+            <CiLight size={20} color="white" />
+          )}
+        </button> */}
+        
+        {user ? (
+          <button
+            onClick={handleLogOut}
+            className="btn btn-soft border-blue-300 rounded-2xl px-7 hover:text-white btn-info"
+          >
+            LogOut
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className="btn btn-soft border-blue-300 rounded-2xl px-7 hover:text-white btn-info"
+          >
+            Login
+          </Link>
+        )}
+          {/* <a className=" btn btn-soft border-blue-300 rounded-full px-7 hover:text-white btn-info">Button</a> */}
         </div>
       </div>
     </div>

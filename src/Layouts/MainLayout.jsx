@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Error from "../pages/Error";
 import Empty from "../pages/Empty";
 import NavBar from "../components/NavBar";
+import HomeBanner from "../components/HomeBanner";
 
 const MainLayout = () => {
   const { user } = use(AuthContext);
@@ -20,6 +21,8 @@ const MainLayout = () => {
       <main className="border mx-auto border-black max-w-7xl"> 
 
       <Outlet></Outlet>
+      <HomeBanner></HomeBanner>
+      
       <Loading></Loading>
       <Register></Register>
       <Login></Login>
