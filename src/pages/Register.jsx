@@ -7,6 +7,7 @@ import register from '../assets/lottie/register.json'
 import Lottie from "lottie-react";
 import { Slide } from "react-awesome-reveal";
 import { AuthContext } from "../provider/AuthProvider";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 
 const Register = () => {
@@ -16,6 +17,7 @@ const Register = () => {
 
   const [nameError, setNameError] = useState('')
   const [passError, setPassError] = useState('')
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
   // console.log(loginWithGoogle);
   const handleRegister = (e) => {
@@ -178,13 +180,20 @@ const Register = () => {
               />
               {/* password  */}
               <label className="label">Password</label>
+              <div className="relative">
+
               <input
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className="input"
                 placeholder="Password"
                 required
+                
               />
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none z-10 mr-5" onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+              </button>
+              </div>
               {passError && <p className="text-xs text-red-500">{passError}</p>}
               <div>
                 <a className="link link-hover">Forgot password?</a>

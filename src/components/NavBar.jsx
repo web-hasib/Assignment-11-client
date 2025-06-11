@@ -3,12 +3,13 @@ import { CiLight } from "react-icons/ci";
 import { LuSunMoon } from "react-icons/lu";
 import { AuthContext } from "../provider/AuthProvider";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
 const links = (
   <>
     <li>
       <a>Item 1</a>
     </li>
-   
+
     <li>
       <a>Item 3</a>
     </li>
@@ -16,16 +17,31 @@ const links = (
 );
 
 const NavBar = () => {
-  const {user}= use(AuthContext);
-  const [theme, setTheme]=useState(false);
-  const handleLogOut = () => {
-    localStorage.removeItem("access-token");
-    window.location.reload();
+  const { user,logOut } = use(AuthContext);
+
+    const handleLogOut = () => {
+    // console.log('user trying to log out');
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `Log out successfully`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        // An error happened.
+        Swal.fire(error.message);
+      });
   };
   return (
     <div className="bg-base-300/50 sticky top-0 z-1 shadow-sm ">
       <div className="navbar m-0 p-0  max-w-7xl mx-auto">
         <div className="navbar-start">
+          {/* dropdown  */}
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
@@ -48,50 +64,93 @@ const NavBar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-                {links}
+              <div className="flex items-center justify-between mb-4">
+                {user?.photoURL && (
+                  <div className="relative group inline-block">
+                    <img
+                      className="w-8 h-8 rounded-full object-cover"
+                      src={user.photoURL}
+                      alt=""
+                    />
+                    <div className="primary">
+                      {user.displayName}
+                    </div>
+                  </div>
+                )}
+                <input
+                  type="checkbox"
+                  value="cupcake"
+                  className="toggle theme-controller"
+                />
+              </div>
+              {links}
+                        {user ? (
+            <button
+              onClick={handleLogOut}
+              className="btn btn-soft border-blue-300 rounded-2xl px-7 hover:text-white btn-info"
+            >
+              LogOut
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="btn btn-soft border-blue-300 rounded-2xl px-7 hover:text-white btn-info"
+            >
+              Login
+            </Link>
+          )}
             </ul>
           </div>
-          <a className="btn btn-ghost text-2xl primary "><img className="w-25 h-30 mb-10
-          " src="https://i.ibb.co/KzFRxwyj/logo-removebg-preview-1.png" alt="" /> BookShelf</a>
+          <a href="/" className="btn shadow-none bg-transparent outline-0 border-0 text-lg md:text-2xl primary ">
+            <img
+              className="w-16 h-16 mb-5 md:w-25 md:h-30 md:mb-10
+          "
+              src="https://i.ibb.co/KzFRxwyj/logo-removebg-preview-1.png"
+              alt=""
+            />{" "}
+            BookShelf
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {links}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
-        <div className="navbar-end">
-           <input
-          type='checkbox'
-          value='cupcake'
-          className='toggle theme-controller'
-        />
-           {/* Theme Button */}
-        {/* <button onClick={()=>{
-          setTheme(!theme)
-        }} className="btn  theme-controller rounded-full">
-          {theme === "light" ? (
-            <LuSunMoon size={20} color="black" />
-          ) : (
-            <CiLight size={20} color="white" />
+        <div className="hidden lg:flex navbar-end items-center gap-2">
+          <input
+            type="checkbox"
+            value="cupcake"
+            className="toggle theme-controller"
+          />
+         
+          {user?.photoURL && (
+            <div className="relative group inline-block">
+              <img
+                className="w-8 h-8 rounded-full object-cover"
+                src={user.photoURL}
+                alt=""
+              />
+              <div className="absolute top-full mt-1 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap">
+                {user.displayName}
+              </div>
+            </div>
           )}
-        </button> */}
-        
-        {user ? (
-          <button
-            onClick={handleLogOut}
-            className="btn btn-soft border-blue-300 rounded-2xl px-7 hover:text-white btn-info"
-          >
-            LogOut
-          </button>
-        ) : (
-          <Link
-            to="/login"
-            className="btn btn-soft border-blue-300 rounded-2xl px-7 hover:text-white btn-info"
-          >
-            Login
-          </Link>
-        )}
-          {/* <a className=" btn btn-soft border-blue-300 rounded-full px-7 hover:text-white btn-info">Button</a> */}
+
+          {user ? (
+            <button
+              onClick={handleLogOut}
+              className="btn btn-soft border-blue-300 rounded-2xl px-7 hover:text-white btn-info"
+            >
+              LogOut
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="btn btn-soft border-blue-300 rounded-2xl px-7 hover:text-white btn-info"
+            >
+              Login
+            </Link>
+          )}
+
+     
         </div>
       </div>
     </div>

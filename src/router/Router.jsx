@@ -3,6 +3,9 @@ import MainLayout from "../Layouts/MainLayout";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Register from "../pages/Register";
+import Profile from "../pages/Profile";
+import PrivateRoute from "../provider/PrivateRoute";
+import Error from "../pages/Error";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +22,11 @@ export const router = createBrowserRouter([
             },{
                 path:'register',
                 Component:Register
+            },
+            {
+                path:'profile',
+             
+                element: <PrivateRoute><Profile></Profile></PrivateRoute> 
             }
         ]
     },
@@ -28,7 +36,7 @@ export const router = createBrowserRouter([
 // },
     {
         path:'*',
-        element: <h1>Error</h1>
+        element: <Error/>
         
     }
 ])
