@@ -8,30 +8,22 @@ import Error from "../pages/Error";
 import Empty from "../pages/Empty";
 import NavBar from "../components/NavBar";
 import HomeBanner from "../components/HomeBanner";
+import Footer from "../components/Footer";
 
 
 const MainLayout = () => {
-  const { user } = use(AuthContext);
-  console.log("user from mainlayout ", user);
+  const { user,loading } = use(AuthContext);
+  // console.log("user from mainlayout ", user);
   return (
     <div>
       
      
         <NavBar></NavBar>
      
-      <main className=" mx-auto max-w-7xl"> 
-
-      <Outlet></Outlet>
-      
-      <HomeBanner></HomeBanner>
-      
-      <Loading></Loading>
-      <Register></Register>
-      <Login></Login>
-      <Error></Error>
-      <Empty></Empty>
-      </main>
-      <footer>footer</footer>
+     <main className="min-h-[calc(100vh-340px)] max-w-7xl mx-auto">
+          {loading ? <Loading /> : <Outlet></Outlet>}
+        </main>
+      <footer><Footer></Footer></footer>
 
     </div>
   );
