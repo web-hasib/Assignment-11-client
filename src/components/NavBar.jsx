@@ -1,8 +1,9 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 
 import { AuthContext } from "../provider/AuthProvider";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import { BsSun, BsMoon } from "react-icons/bs";
 const links = (
   <>
     <li>
@@ -17,12 +18,28 @@ const links = (
 
 const NavBar = () => {
   const { user, logOut } = use(AuthContext);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("theme");
+    setIsDark(currentTheme === "cupcake");
+    document.documentElement.setAttribute(
+      "data-theme",
+      currentTheme || "black"
+    );
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = isDark ? "black" : "cupcake";
+    setIsDark(!isDark);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+  };
 
   const handleLogOut = () => {
     // console.log('user trying to log out');
     logOut()
       .then(() => {
-
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -32,7 +49,6 @@ const NavBar = () => {
         });
       })
       .catch((error) => {
-      
         Swal.fire(error.message);
       });
   };
@@ -57,12 +73,10 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="hidden lg:flex navbar-end items-center gap-2">
-          <input
-            type="checkbox"
-            value="cupcake"
-            className="toggle theme-controller"
-          />
-  
+          <button onClick={toggleTheme} className="text-xl btn btn-ghost">
+            {isDark ? <BsSun /> : <BsMoon />}
+          </button>
+
           {user?.photoURL && (
             <Link to="/profile" className="relative group inline-block">
               <img
@@ -126,11 +140,14 @@ const NavBar = () => {
                   <div className="primary">{user.displayName}</div>
                 </Link>
               )}
-              <input
+              {/* <input
                 type="checkbox"
                 value="cupcake"
                 className="toggle theme-controller"
-              />
+              /> */}
+              <button onClick={toggleTheme} className="text-xl btn btn-ghost">
+                {isDark ? <BsSun /> : <BsMoon />}
+              </button>
             </div>
             {links}
             {user ? (

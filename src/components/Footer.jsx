@@ -5,50 +5,37 @@ import { NavLink } from "react-router";
 const Footer = ({ theme }) => {
   return (
     <footer
-      style={{
-        backgroundImage:
-          theme === "dark" ? "" : "url('https://i.ibb.co/CpCMtPPK/13.jpg')",
-        backgroundSize: "cover",
-      }}
-      className="footer footer-horizontal footer-center  text-base-content rounded pt-10 pb-5"
+     
+      className="footer footer-horizontal footer-center  text-base-content rounded pt-10 pb-5 border-t border-primary border-dashed"
     >
       <div className="flex items-center gap-3">
-        <img
-          className="w-[30px] md:w-[40px] rounded-full"
-          src="https://i.ibb.co/jvscyq8R/2-removebg-preview.png"
-          alt=""
-        />
-        <a href="/" className="font-bold text-lg md:text-3xl text-blue-400">
-          Recipe <span className="text-gray-600 text-xs md:text-lg">Book</span>
-        </a>
+        <a
+            href="/"
+            className="btn shadow-none bg-transparent outline-0 border-0 text-lg md:text-2xl primary "
+          >
+            <img
+              className="w-16 h-16 mb-5 md:w-25 md:h-30 md:mb-10
+          "
+              src="https://i.ibb.co/KzFRxwyj/logo-removebg-preview-1.png"
+              alt=""
+            />{" "}
+            BookShelf
+          </a>
       </div>
       <div className="flex gap-3">
-        <NavLink className="hover:text-black hover:font-bold" to="/">
-          {" "}
+        <NavLink
+          to="/"
+          className="text-xs font-semibold hover:text-blue-500"
+        >
           Home
         </NavLink>
-        <NavLink className="hover:text-black hover:font-bold" to="/allRecipes">
-          {" "}
-          All Recipes
-        </NavLink>
-        <NavLink className="hover:text-black hover:font-bold" to="/addRecipe">
-          {" "}
-          Add Recipe
-        </NavLink>
-        <NavLink className="hover:text-black hover:font-bold" to="/myRecipes">
-          {" "}
-          My Recipes
-        </NavLink>
-        <NavLink className="hover:text-black hover:font-bold" to="/about">
-          {" "}
-          About
-        </NavLink>
+      
       </div>
       {/* Contact Info */}
-      <div className="text-center mt-4">
+      <div className="text-center">
         <p className="text-sm text-gray-600">
           📧 Email:{" "}
-          <a className="hover:underline text-blue-500">recipe@book.com</a>
+          <a className="hover:underline text-blue-500">jrweb.hasib@gmail.com</a>
         </p>
         <p className="text-sm text-gray-600">
           📞 Phone:{" "}
@@ -56,6 +43,16 @@ const Footer = ({ theme }) => {
         </p>
       </div>
       <nav>
+          {/* Terms + Links */}
+        <div className="mb-4">
+          <h3 className="font-semibold text-lg mb-2">Resources</h3>
+          <div className="flex items-center text-xs gap-2 flex-col md:flex-row">
+            <a href="#" className="block hover:underline">Terms & Conditions</a>
+          <a href="#" className="block hover:underline">Privacy Policy</a>
+          <a href="#" className="block hover:underline">FAQs</a>
+          <a href="#" className="block hover:underline">Support</a>
+          </div>
+        </div>
         {/* Social Media Links */}
         <div className="flex justify-center md:justify-end space-x-4 text-xl">
           <a
