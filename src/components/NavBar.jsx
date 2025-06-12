@@ -9,6 +9,9 @@ const links = (
     <li>
      <NavLink to='/addBook'>AddBook</NavLink>
     </li>
+    <li>
+     <NavLink to='/myBooks'>myBooks</NavLink>
+    </li>
 
     <li>
       <a>Item 3</a>

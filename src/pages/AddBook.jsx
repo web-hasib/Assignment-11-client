@@ -78,10 +78,10 @@ const AddBook = () => {
 
       <div className="p-6 md:p-12">
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl text-blue-400 font-bold">
+          <h1 className="text-4xl md:text-5xl primary text-primary font-bold">
             Add New Book
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className=" text-accent italic">
             Fill in the form below to add your favorite book to the shelf.
           </p>
         </div>
