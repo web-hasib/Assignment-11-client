@@ -60,7 +60,7 @@ const TopBookCard = ({ book }) => {
           {book.book_overview}
         </p>
 
-        <Link to={`books/${book._id}`} className="btn btn-sm btn-primary mt-2">View Details</Link>
+        <Link to={`/books/${book._id}`} className="btn btn-sm btn-primary mt-2">View Details</Link>
       </div>
     </motion.div>
   );

@@ -9,6 +9,7 @@ import Error from "../pages/Error";
 import AllBooks from "../pages/AllBooks";
 import Loading from './../pages/Loading';
 import BookDetails from "../pages/bookDetails";
+import AddBook from "../pages/AddBook";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
                 path:'books/:id',
                 loader:({params})=>fetch(`http://localhost:3000/books/${params.id}`),
                 element:<PrivateRoute><BookDetails></BookDetails></PrivateRoute>  
+            },
+            {
+                path:'addBook',
+                element:<PrivateRoute><AddBook></AddBook></PrivateRoute>
             }
         ]
     },

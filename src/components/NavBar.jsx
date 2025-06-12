@@ -1,13 +1,13 @@
 import React, { use, useEffect, useState } from "react";
 
 import { AuthContext } from "../provider/AuthProvider";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import Swal from "sweetalert2";
 import { BsSun, BsMoon } from "react-icons/bs";
 const links = (
   <>
     <li>
-      <a>Item 1</a>
+     <NavLink to='/addBook'>AddBook</NavLink>
     </li>
 
     <li>
