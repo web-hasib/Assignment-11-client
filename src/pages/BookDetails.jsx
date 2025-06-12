@@ -1,52 +1,79 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaThumbsUp, FaEdit, FaTrash } from 'react-icons/fa';
-import { useLoaderData } from 'react-router';
-import { use } from 'react';
-import { AuthContext } from '../Provider/AuthProvider';
-import Swal from 'sweetalert2';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { FaThumbsUp, FaEdit, FaTrash } from "react-icons/fa";
+import { useLoaderData } from "react-router";
+import { use } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const BookDetails = () => {
-  const {user} = use(AuthContext);
-  
+  const { user } = use(AuthContext);
+
   // Static sample data for visualization
-  const loadedBook = useLoaderData() ;
-  const [book,setBook] = useState(loadedBook);  
+  const loadedBook = useLoaderData();
+  const [book, setBook] = useState(loadedBook);
   const [upvote, setUpvote] = useState(book.upvote.includes(user?.email));
   const [upvoteCount, setUpvoteCount] = useState(book.upvote.length);
-  console.log('upvoted by ', upvote);
+  console.log("upvoted by ", upvote);
   useEffect(() => {
-    
-    setUpvote(book.upvote.includes(user?.email))
+    setUpvote(book.upvote.includes(user?.email));
     setUpvoteCount(book.upvote.length);
-  },[user, book.upvote])
+  }, [user, book.upvote]);
   const handleUpvote = () => {
     // Placeholder for upvote functionality
-    if(user?.email === book.user_email) return Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'You cannot upvote your own book!',
-    });
-    // alert('Upvoted.');
-    
-    // handle upvote functionality api 
-    axios.patch(`http://localhost:3000/upvote/${book._id}`,{email:user.email} ).then(data => {
-      const isUpvoted = data?.data?.upvoted;
-      console.log(data.data);
-            setBook((prevBook) => {
-        const updatedUpvote = isUpvoted
-          ? [...prevBook.upvote, user.email]
-          : prevBook.upvote.filter((email) => email !== user.email);
-
-        return { ...prevBook, upvote: updatedUpvote };
+    if (user?.email === book.user_email)
+      return Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "You cannot upvote your own book!",
       });
-      setUpvote(isUpvoted)
-      setUpvoteCount(prev=>{isUpvoted ? prev + 1 : prev - 1});
-    })
+    // alert('Upvoted.');
 
-   
-  }
+    // handle upvote functionality api
+    axios
+      .patch(`http://localhost:3000/upvote/${book._id}`, { email: user.email })
+      .then((data) => {
+        const isUpvoted = data?.data?.upvoted;
+        console.log(data.data);
+        setBook((prevBook) => {
+          const updatedUpvote = isUpvoted
+            ? [...prevBook.upvote, user.email]
+            : prevBook.upvote.filter((email) => email !== user.email);
+
+          return { ...prevBook, upvote: updatedUpvote };
+        });
+        setUpvote(isUpvoted);
+        setUpvoteCount((prev) => {
+          isUpvoted ? prev + 1 : prev - 1;
+        });
+      });
+  };
+  const handleReadingStatusUpdate = (newStatus) => {
+    if (!user?.email) return;
+
+    axios
+      .patch(`http://localhost:3000/updateReadingStatus/${book._id}`, {
+        email: user.email,
+        reading_status: newStatus,
+      })
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          setBook((prev) => ({ ...prev, reading_status: newStatus }));
+          Swal.fire({
+            icon: "success",
+            title: "Status Updated",
+            text: `Your reading status is now "${newStatus}".`,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Update Failed",
+            text: "You can only update your own book reading status.",
+          });
+        }
+      });
+  };
 
   return (
     <motion.div
@@ -66,25 +93,46 @@ const BookDetails = () => {
         </div>
         <div className="md:w-2/3">
           <h1 className="text-3xl primary font-bold mb-2">{book.book_title}</h1>
-          <p className="text-secondary-content/55 text-sm outline-accent mb-2">by {book.book_author}</p>
-          <p className="text-secondary-content/55 text-sm outline-accent mb-2">Category: {book.book_category}</p>
-          <p className="text-secondary-content/55 text-sm outline-accent mb-2">Total Pages: {book.total_page}</p>
-          <p className="text-secondary-content/55 text-sm outline-accent mb-2">Status: {book.reading_status}</p>
-          <p className="text-secondary-content/55 text-sm outline-accent mb-4">Overview: {book.book_overview}</p>
-          <p className="text-secondary-content/55 text-sm outline-accent mb-4">Added by: {book.user_name} ({book.user_email})</p>
+          <p className="text-secondary-content/55 text-sm outline-accent mb-2">
+            by {book.book_author}
+          </p>
+          <p className="text-secondary-content/55 text-sm outline-accent mb-2">
+            Category: {book.book_category}
+          </p>
+          <p className="text-secondary-content/55 text-sm outline-accent mb-2">
+            Total Pages: {book.total_page}
+          </p>
+          <p className="text-secondary-content/55 text-sm outline-accent mb-2">
+            Status: {book.reading_status}
+          </p>
+          <p className="text-secondary-content/55 text-sm outline-accent mb-4">
+            Overview: {book.book_overview}
+          </p>
+          <p className="text-secondary-content/55 text-sm outline-accent mb-4">
+            Added by: {book.user_name} ({book.user_email})
+          </p>
           <div className="flex items-center mb-4">
-            <button onClick={handleUpvote}
+            <button
+              onClick={handleUpvote}
               className="flex items-center gap-2 px-4 py-2 btn btn-accent"
             >
-              <FaThumbsUp />  {upvote ? 'Upvoted' : 'Upvote'}
+              <FaThumbsUp /> {upvote ? "Upvoted" : "Upvote"}
             </button>
-            <span className='text-primary-content font-bold text-lg px-5'>{upvoteCount}</span>
+            <span className="text-primary-content font-bold text-lg px-5">
+              {upvoteCount}
+            </span>
           </div>
 
           {/* Reading Status Update Placeholder */}
           <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Update Reading Status:</label>
-            <select className="border rounded-lg p-2">
+            <label className="block text-gray-700 mb-2">
+              Update Reading Status:
+            </label>
+            <select
+              className="border rounded-lg p-2"
+              value={book.reading_status}
+              onChange={(e) => handleReadingStatusUpdate(e.target.value)}
+            >
               <option value="Want-to-Read">Want to Read</option>
               <option value="Reading">Reading</option>
               <option value="Read">Read</option>
@@ -103,7 +151,9 @@ const BookDetails = () => {
             {book.reviews.map((review) => (
               <div key={review.comment} className="border p-4 rounded-lg">
                 <p className="text-gray-600">{review.comment}</p>
-                <p className="text-sm text-gray-500">By {review.reviewer_name}</p>
+                <p className="text-sm text-gray-500">
+                  By {review.reviewer_name}
+                </p>
                 <p>retting: {review.reting}</p>
                 <div className="flex gap-2 mt-2">
                   <button className="text-blue-500 hover:text-blue-700">
