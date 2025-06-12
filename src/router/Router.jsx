@@ -6,6 +6,9 @@ import Register from "../pages/Register";
 import Profile from "../pages/Profile";
 import PrivateRoute from "../provider/PrivateRoute";
 import Error from "../pages/Error";
+import AllBooks from "../pages/AllBooks";
+import Loading from './../pages/Loading';
+import BookDetails from "../pages/bookDetails";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +31,16 @@ export const router = createBrowserRouter([
                 path:'profile',
              
                 element: <PrivateRoute><Profile></Profile></PrivateRoute> 
+            },{
+                path:'allBooks',
+                loader:()=>fetch('http://localhost:3000/books'),
+                hydrateFallbackElement:<Loading></Loading>,
+                element:<PrivateRoute><AllBooks></AllBooks></PrivateRoute>
+            },
+            {
+                path:'books/:id',
+                loader:({params})=>fetch(`http://localhost:3000/books/${params.id}`),
+                element:<PrivateRoute><BookDetails></BookDetails></PrivateRoute>  
             }
         ]
     },

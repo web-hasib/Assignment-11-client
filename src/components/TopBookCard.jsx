@@ -1,6 +1,7 @@
 import React from "react";
 import { FaArrowUp, FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 const TopBookCard = ({ book }) => {
   const {
@@ -59,7 +60,7 @@ const TopBookCard = ({ book }) => {
           {book.book_overview}
         </p>
 
-        <button className="btn btn-sm btn-primary mt-2">View Details</button>
+        <Link to={`books/${book._id}`} className="btn btn-sm btn-primary mt-2">View Details</Link>
       </div>
     </motion.div>
   );
