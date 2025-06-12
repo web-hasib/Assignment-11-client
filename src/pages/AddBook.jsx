@@ -26,7 +26,7 @@ const AddBook = () => {
       book_overview: form.book_overview.value,
       user_email: email,
       user_name: user_name,
-      upvote: 0,
+      upvote: [],
       reviews: [],
     };
 

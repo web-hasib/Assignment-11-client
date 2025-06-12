@@ -1,9 +1,10 @@
 import React, { use, useEffect, useState } from "react";
 
-import { AuthContext } from "../provider/AuthProvider";
+
 import { Link, NavLink } from "react-router";
 import Swal from "sweetalert2";
 import { BsSun, BsMoon } from "react-icons/bs";
+import { AuthContext } from "../Provider/AuthProvider";
 const links = (
   <>
     <li>

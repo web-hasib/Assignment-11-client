@@ -45,7 +45,7 @@ const TopBookCard = ({ book }) => {
 
         <div className="flex items-center gap-2 mt-2">
           <FaArrowUp className="text-red-300" />
-          <span className="font-semibold text-[14px] md:text-[10px]">{upvote} Upvotes</span>
+          <span className="font-semibold text-[14px] md:text-[10px]">{upvote.length} Upvotes</span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-[14px] md:text-[10px]">
