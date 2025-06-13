@@ -1,28 +1,77 @@
-import React, { useState, use } from "react";
+import React, { useState, useEffect, use } from "react";
+import { AuthContext } from "./../provider/AuthProvider";
 import { motion } from "framer-motion";
 import { Fade } from "react-awesome-reveal";
-import { updateProfile } from "firebase/auth";
-import { AuthContext } from "./../provider/AuthProvider";
+import { Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { IoBookSharp } from "react-icons/io5";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Profile = () => {
-  const { user } = use(AuthContext);
+  const { user, updateUser } = use(AuthContext);
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(user.displayName || "");
   const [photo, setPhoto] = useState(user.photoURL || "");
   const [showDetails, setShowDetails] = useState(false);
+  const [chartData, setChartData] = useState([]);
+
+
+  const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
+
+const getPath = (x, y, width, height) => {
+  return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
+  ${x + width / 2}, ${y}
+  C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${x + width}, ${y + height}
+  Z`;
+};
+
+const TriangleBar = (props) => {
+  const { fill, x, y, width, height } = props;
+  return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+};
+ 
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/books?email=${user.email}`);
+        const books = res.data;
+
+        const categoryCount = {};
+        books.forEach(book => {
+          const cat = book.book_category;
+          categoryCount[cat] = (categoryCount[cat] || 0) + 1;
+        });
+
+
+        const formattedData = Object.entries(categoryCount).map(([category, count], index) => ({
+          name: category,
+          value: count,
+          fill: colors[index % colors.length],
+          label: count,
+        }));
+
+        setChartData(formattedData);
+      } catch (error) {
+        console.error("Failed to fetch chart data:", error);
+      }
+    };
+
+    if (user?.email) {
+      fetchBooks();
+    }
+  }, [user]);
 
   const handleUpdate = async () => {
     try {
-      await updateProfile(user, {
+      await updateUser({
         displayName: name,
         photoURL: photo,
       });
+
+      Swal.fire("Success", "Profile updated successfully!", "success");
       setEditing(false);
-      location.reload();
-      Swal.fire('success'); 
     } catch (error) {
-      Swal.fire("Update failed:", error);
+      Swal.fire("Error", "Update failed: " + error.message, "error");
     }
   };
 
@@ -35,14 +84,18 @@ const Profile = () => {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-5xl font-bold text-center text-primary mb-6"
         >
-          <motion.span 
-           animate={{color:['#ff5733','#33ff33','#8a33ff'],
-            transition:{duration:1 ,repeat:Infinity}
-           }}
-           >Welcome</motion.span>,<span className="primary"> {user.displayName || "User"}</span>
+          <motion.span
+            animate={{
+              color: ['#ff5733', '#33ff33', '#8a33ff'],
+              transition: { duration: 1, repeat: Infinity },
+            }}
+          >
+            Welcome
+          </motion.span>
+          ,<span className="primary"> {user.displayName || "User"}</span>
         </motion.h1>
 
-        <div className="bg-base-100 rounded-xl  p-6 flex flex-col md:flex-row gap-6 items-center">
+        <div className="bg-base-100 rounded-xl p-6 flex flex-col md:flex-row gap-6 items-center">
           <motion.img
             src={photo || "https://i.ibb.co/8L7JtyF0/user.jpg"}
             alt="Profile"
@@ -87,42 +140,23 @@ const Profile = () => {
               </>
             ) : (
               <>
-                <p>
-                  <span className="font-semibold">Email:</span> {user.email}
-                </p>
-                <p>
-                  <span className="font-semibold">Email Verified:</span>{" "}
-                  {user.emailVerified ? " Yes" : "No"}
-                </p>
+                <p><span className="font-semibold">Email:</span> {user.email}</p>
+                <p><span className="font-semibold">Email Verified:</span> {user.emailVerified ? "Yes" : "No"}</p>
 
-                <div className="pt-4 space-x-2">
-                  <button
-                    onClick={() => setEditing(true)}
-                    className="btn btn-primary w-full md:w-auto"
-                  >
+                <div className="pt-4 space-y-5 space-x-2">
+                  <button onClick={() => setEditing(true)} className="btn btn-primary w-full md:w-auto">
                     Edit Profile
                   </button>
-                  <button
-                    onClick={() => setShowDetails(!showDetails)}
-                    className="btn btn-outline"
-                  >
+                  <button onClick={() => setShowDetails(!showDetails)} className="btn btn-outline">
                     {showDetails ? "Hide Info" : "Show More Info"}
                   </button>
                 </div>
 
                 {showDetails && (
                   <div className="pt-4 space-y-2">
-                    <p className="text-sm ">
-                      <span className="text-sm font-thin text-primary   italic">User ID:</span> {user.uid}
-                    </p>
-                    <p className="text-sm ">
-                      <span className="text-sm font-thin text-primary    italic">Created At:</span>{" "}
-                      {new Date(user.metadata.creationTime).toLocaleString()}
-                    </p>
-                    <p className="text-sm ">
-                      <span className="text-sm font-thin text-primary   italic">Last Login:</span>{" "}
-                      {new Date(user.metadata.lastSignInTime).toLocaleString()}
-                    </p>
+                    <p className="text-sm"><span className="text-sm font-thin text-primary italic">User ID:</span> {user.uid}</p>
+                    <p className="text-sm"><span className="text-sm font-thin text-primary italic">Created At:</span> {new Date(user.metadata.creationTime).toLocaleString()}</p>
+                    <p className="text-sm"><span className="text-sm font-thin text-primary italic">Last Login:</span> {new Date(user.metadata.lastSignInTime).toLocaleString()}</p>
                   </div>
                 )}
               </>
@@ -130,7 +164,42 @@ const Profile = () => {
           </div>
         </div>
       </Fade>
+
+      {/* Bar Chart Section */}
+      <div className="mt-10 bg-base-100 p-6 rounded-xl">
+        <h2 className="text-2xl font-semibold mb-4 primary  py-10 flex justify-center items-center gap-3">  <IoBookSharp size={40}/> Your Books by Category</h2>
+        {chartData.length > 0 ? (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar
+                dataKey="value"
+                shape={<TriangleBar />}
+                label={{
+                  position: "top",
+                  fill: "#333",
+                  fontWeight: "bold",
+                }}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <p className="text-center text-gray-500">No data to display.</p>
+        )}
+      </div>
+    
+
+
+
     </div>
+
   );
 };
 
