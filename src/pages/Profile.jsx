@@ -27,7 +27,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-8">
+    <div className="max-w-7xl mx-auto py-10">
       <Fade cascade damping={0.1}>
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -42,7 +42,7 @@ const Profile = () => {
            >Welcome</motion.span>,<span className="primary"> {user.displayName || "User"}</span>
         </motion.h1>
 
-        <div className="bg-base-100 rounded-xl shadow-xl p-6 flex flex-col md:flex-row gap-6 items-center">
+        <div className="bg-base-100 rounded-xl  p-6 flex flex-col md:flex-row gap-6 items-center">
           <motion.img
             src={photo || "https://i.ibb.co/8L7JtyF0/user.jpg"}
             alt="Profile"

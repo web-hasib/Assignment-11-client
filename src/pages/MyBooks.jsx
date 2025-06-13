@@ -4,6 +4,8 @@ import axios from "axios";
 import TopBookCard from "../components/TopBookCard";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import Empty from './Empty';
 
 const MyBooks = () => {
   const [data, setData] = useState([]);
@@ -50,25 +52,36 @@ const MyBooks = () => {
     navigate(`/editBook/${id}`);
   };
 
+  if(data.length === 0) {
+    return (
+     <Empty/>
+    );
+  }
+
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">My books: {data.length}</h1>
+      <h1 className="text-2xl text-primary text-center py-5 primary font-bold mb-4">My books: {data.length}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.map((book) => (
-          <div key={book._id} className="border p-4 rounded shadow">
+          <div
+            key={book._id}
+            className=" pb-4 rounded-3xl bg-accent-content/10 shadow"
+          >
             <TopBookCard book={book} />
-            <div className="flex justify-end gap-2 mt-2">
+            <div className="flex justify-end gap-4 px-5 mt-2">
               <button
                 onClick={() => handleEdit(book._id)}
-                className="px-3 py-1 bg-blue-500 text-white rounded"
+                className="btn btn-sm btn-circle btn-info text-white"
+                title="Edit"
               >
-                Edit
+                <FaEdit size={16} />
               </button>
               <button
                 onClick={() => handleDelete(book._id)}
-                className="px-3 py-1 bg-red-500 text-white rounded"
+                className="btn btn-sm btn-circle btn-error text-white"
+                title="Delete"
               >
-                Delete
+                <FaTrash size={16} />
               </button>
             </div>
           </div>
