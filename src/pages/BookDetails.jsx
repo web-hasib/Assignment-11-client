@@ -6,6 +6,7 @@ import { use } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { FaStar } from "react-icons/fa";
 
 const BookDetails = () => {
   const { user } = use(AuthContext);
@@ -15,7 +16,10 @@ const BookDetails = () => {
   const [book, setBook] = useState(loadedBook);
   const [upvote, setUpvote] = useState(book.upvote.includes(user?.email));
   const [upvoteCount, setUpvoteCount] = useState(book.upvote.length);
-  console.log("upvoted by ", upvote);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
+  const [hoveredStar, setHoveredStar] = useState(null);
+  // console.log("upvoted by ", upvote);
   useEffect(() => {
     setUpvote(book.upvote.includes(user?.email));
     setUpvoteCount(book.upvote.length);
@@ -73,6 +77,34 @@ const BookDetails = () => {
           });
         }
       });
+  };
+  const handleAddReview = async () => {
+    if (!user?.email || rating === 0 || comment.trim().length < 10) return;
+
+    const review = {
+      reviewer_name: user.displayName || "Anonymous",
+      reviewer_email: user.email,
+      comment,
+      rating: rating,
+    };
+
+    try {
+      const res = await axios.patch(
+        `http://localhost:3000/review/${book._id}`,
+        review
+      );
+      if (res.data.modifiedCount > 0) {
+        Swal.fire("Success!", "Your review has been added.", "success");
+        setBook((prev) => ({
+          ...prev,
+          reviews: [...prev.reviews, review],
+        }));
+        setComment("");
+        setRating(0);
+      }
+    } catch (error) {
+      Swal.fire("Error", "Failed to submit review", "error");
+    }
   };
 
   return (
@@ -141,46 +173,97 @@ const BookDetails = () => {
         </div>
       </div>
 
-      {/* Reviews Section */}
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">Reviews</h2>
-        {book.reviews.length === 0 ? (
-          <p>No reviews yet. Be the first to review!</p>
-        ) : (
-          <div className="space-y-4">
-            {book.reviews.map((review) => (
-              <div key={review.comment} className="border p-4 rounded-lg">
-                <p className="text-gray-600">{review.comment}</p>
-                <p className="text-sm text-gray-500">
-                  By {review.reviewer_name}
-                </p>
-                <p>retting: {review.reting}</p>
-                <div className="flex gap-2 mt-2">
-                  <button className="text-blue-500 hover:text-blue-700">
-                    <FaEdit />
-                  </button>
-                  <button className="text-red-500 hover:text-red-700">
-                    <FaTrash />
-                  </button>
+      {/* All Reviews Section */}
+      <div className="mt-12 bg-accent/5  shadow-md rounded-xl p-6 max-w-7xl mx-auto">
+        <h2 className="text-2xl font-bold text-primary mb-6">User Reviews</h2>
+
+        {book.reviews?.length > 0 ? (
+          book.reviews.map((rev, index) => (
+            <div
+              key={index}
+              className="border-b border-gray-200/50 border-dashed pb-4 mb-4 last:border-none"
+            >
+              <div className="flex items-center mb-2">
+                <div className="w-10 h-10 rounded-full bg-secondary-content/40 flex items-center justify-center font-bold text-white mr-3">
+                  {rev.reviewer_name?.charAt(0) || "U"}
+                </div>
+                <div>
+                  <p className="font-semibold text-secondary-content">
+                    {rev.reviewer_name}
+                  </p>
+                  <div className="flex text-yellow-400">
+                    {Array(rev.rating || rev.reting || 0)
+                      .fill()
+                      .map((_, i) => (
+                        <FaStar key={i} />
+                      ))}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+              <p className="text-primary-content italic md:pl-5">{rev.comment}</p>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500">No reviews yet.</p>
         )}
+      </div>
 
-        {/* Add Review Form Placeholder */}
-        <form className="mt-4">
-          <textarea
-            placeholder="Write your review..."
-            className="w-full border rounded-lg p-2 mb-2"
-          />
-          <button
-            type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded-lg"
-          >
-            Post Review
-          </button>
-        </form>
+      {/* Add Review Section */}
+      <div className="mt-12 bg-base-content/5 shadow-md rounded-xl p-6 max-w-7xl mx-auto">
+        <div className="flex items-center mb-4">
+          <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center font-bold text-white mr-4">
+            {user?.displayName?.charAt(0) || "U"}
+          </div>
+          <div>
+            <p className="text-xl font-semibold text-primary">
+              {user?.displayName || "Anonymous"}
+            </p>
+            <p className="text-sm text-primary-content">Share your thoughts</p>
+          </div>
+        </div>
+
+        {/* Star Rating with react-icons */}
+        <div className="flex items-center gap-1 my-4">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <FaStar
+              key={star}
+              onClick={() => setRating(star)}
+              onMouseEnter={() => setHoveredStar(star)}
+              onMouseLeave={() => setHoveredStar(null)}
+              className={`w-8 h-8 cursor-pointer transition-transform duration-150 hover:scale-110 ${
+                (hoveredStar || rating) >= star
+                  ? "text-yellow-400"
+                  : "text-gray-300"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Review Textarea */}
+        <textarea
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:outline-none  text-base"
+          placeholder="Describe your experience (at least 10 characters)..."
+          rows="4"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          maxLength={300}
+        ></textarea>
+        <div className="text-sm text-gray-400 mt-1 text-right">
+          {comment.length}/300
+        </div>
+
+        {/* Submit Button */}
+        <button
+          onClick={handleAddReview}
+          disabled={comment.length < 10 || rating === 0}
+          className={`mt-4 w-full text-white font-medium py-3 rounded-lg transition-all duration-300 ${
+            comment.length >= 10 && rating !== 0
+              ? "bg-accent hover:bg-accent-focus"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Submit Review
+        </button>
       </div>
     </motion.div>
   );

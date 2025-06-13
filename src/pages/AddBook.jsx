@@ -50,24 +50,7 @@ const AddBook = () => {
             });
         }
     })
-    // Using fetch to send the new book data to the server
-    // axios.post("http://localhost:3000/books", newBook)
-
-    //
-    //    //
-    //  .then((res) => res.json())  
-
-
-
-    // fetch("localhost:3000/books", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(newBook),
-    // })
-    //   .then((res) => res.json())
-    //   );
+   
   };
 
   return (
