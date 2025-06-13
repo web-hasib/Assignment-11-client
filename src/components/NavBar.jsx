@@ -13,6 +13,9 @@ const links = (
     <li>
      <NavLink to='/myBooks'>myBooks</NavLink>
     </li>
+    <li>
+     <NavLink to='/about'>About</NavLink>
+    </li>
 
     <li>
       <a>Item 3</a>

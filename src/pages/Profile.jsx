@@ -76,7 +76,8 @@ const TriangleBar = (props) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-10">
+    <motion.div className="max-w-7xl mx-auto py-10">
+      {/* profil  */}
       <Fade cascade damping={0.1}>
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -165,8 +166,13 @@ const TriangleBar = (props) => {
         </div>
       </Fade>
 
-      {/* Bar Chart Section */}
-      <div className="mt-10 bg-base-100 p-6 rounded-xl">
+      {/* Bar Chart*/}
+     <motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  className="mt-10 bg-base-100 p-6 rounded-xl"
+>
         <h2 className="text-2xl font-semibold mb-4 primary  py-10 flex justify-center items-center gap-3">  <IoBookSharp size={40}/> Your Books by Category</h2>
         {chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
@@ -193,12 +199,12 @@ const TriangleBar = (props) => {
         ) : (
           <p className="text-center text-gray-500">No data to display.</p>
         )}
-      </div>
+      </motion.div>
     
 
 
 
-    </div>
+    </motion.div>
 
   );
 };
