@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
         children:[
             {
                 index:true,
-                loader:()=>fetch('https://virtual-bookshelf-server-five.vercel.app/topBooks'),
+                loader:()=>fetch('http://localhost:3000/topBooks'),
                 Component:Home
             },
             {
@@ -37,13 +37,13 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute><Profile></Profile></PrivateRoute> 
             },{
                 path:'allBooks',
-                loader:()=>fetch('https://virtual-bookshelf-server-five.vercel.app/books'),
+                loader:()=>fetch('http://localhost:3000/books'),
                 hydrateFallbackElement:<Loading></Loading>,
                 element:<AllBooks></AllBooks>
             },
             {
                 path:'books/:id',
-                loader:({params})=>fetch(`https://virtual-bookshelf-server-five.vercel.app/books/${params.id}`),
+                loader:({params})=>fetch(`http://localhost:3000/books/${params.id}`),
                 element:<PrivateRoute><BookDetails></BookDetails></PrivateRoute>  
             },
             {
