@@ -10,3 +10,6 @@
 @plugin "daisyui" {
   themes: light --cyberpunk, dark --abyss , cupcake,  cyberpunk, abyss;
 }
+.active {
+  @apply underline font-bold text-primary;
+}

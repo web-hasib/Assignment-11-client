@@ -37,10 +37,10 @@ const BookDetails = () => {
 
     // handle upvote functionality api
     axios
-      .patch(`http://localhost:3000/upvote/${book._id}`, { email: user.email })
+      .patch(`https://virtual-bookshelf-server-five.vercel.app/upvote/${book._id}`, { email: user.email })
       .then((data) => {
         const isUpvoted = data?.data?.upvoted;
-        console.log(data.data);
+        // console.log(data.data);
         setBook((prevBook) => {
           const updatedUpvote = isUpvoted
             ? [...prevBook.upvote, user.email]
@@ -58,7 +58,7 @@ const BookDetails = () => {
     if (!user?.email) return;
 
     axios
-      .patch(`http://localhost:3000/updateReadingStatus/${book._id}`, {
+      .patch(`https://virtual-bookshelf-server-five.vercel.app/updateReadingStatus/${book._id}`, {
         email: user.email,
         reading_status: newStatus,
       })
@@ -99,7 +99,7 @@ const BookDetails = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/review/${book._id}`,
+        `https://virtual-bookshelf-server-five.vercel.app/review/${book._id}`,
         review
       );
       if (res.data.modifiedCount > 0) {

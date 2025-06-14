@@ -33,7 +33,7 @@ const TriangleBar = (props) => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/books?email=${user.email}`);
+        const res = await axios.get(`https://virtual-bookshelf-server-five.vercel.app/books?email=${user.email}`);
         const books = res.data;
 
         const categoryCount = {};

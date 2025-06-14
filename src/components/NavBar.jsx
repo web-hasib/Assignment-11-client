@@ -5,27 +5,36 @@ import { Link, NavLink } from "react-router";
 import Swal from "sweetalert2";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { AuthContext } from "../Provider/AuthProvider";
-const links = (
+
+
+const NavBar = () => {
+  const { user, logOut } = use(AuthContext);
+  const [isDark, setIsDark] = useState(false);
+  const links = (
   <>
     <li>
-     <NavLink to='/addBook'>AddBook</NavLink>
+     <NavLink to='/'>Home</NavLink>
     </li>
     <li>
-     <NavLink to='/myBooks'>myBooks</NavLink>
+     <NavLink to='/allBooks'>allBooks</NavLink>
     </li>
     <li>
      <NavLink to='/about'>About</NavLink>
     </li>
 
-    <li>
-      <a>Item 3</a>
+    {user && (<>
+        <li>
+     <NavLink to='/addBook'>AddBook</NavLink>
     </li>
+    <li>
+     <NavLink to='/myBooks'>myBooks</NavLink>
+    </li>
+
+    <li>
+      <NavLink to='/profile'>Profile</NavLink>
+    </li></>)}
   </>
 );
-
-const NavBar = () => {
-  const { user, logOut } = use(AuthContext);
-  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const currentTheme = localStorage.getItem("theme");

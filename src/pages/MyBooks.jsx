@@ -15,7 +15,7 @@ const MyBooks = () => {
   const fetchBooks = () => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/books?email=${user.email}`)
+        .get(`https://virtual-bookshelf-server-five.vercel.app/books?email=${user.email}`)
         .then((res) => setData(res.data))
         .catch((err) => console.error(err));
     }
@@ -35,7 +35,7 @@ const MyBooks = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/books/${id}`)
+          .delete(`https://virtual-bookshelf-server-five.vercel.app/books/${id}`)
           .then(() => {
             Swal.fire("Deleted!", "Your book has been deleted.", "success");
             fetchBooks();

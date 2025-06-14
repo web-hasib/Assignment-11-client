@@ -1,8 +1,10 @@
-import React from "react";
+import React, { use } from "react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { NavLink } from "react-router";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Footer = ({ theme }) => {
+  const {user} = use(AuthContext);
   return (
     <footer
      
@@ -22,13 +24,30 @@ const Footer = ({ theme }) => {
             BookShelf
           </a>
       </div>
-      <div className="flex gap-3">
-        <NavLink
-          to="/"
-          className="text-xs font-semibold hover:text-blue-500"
-        >
-          Home
-        </NavLink>
+      <div className="">
+         <ul className="flex gap-3">
+           <li>
+            <NavLink to='/'>Home</NavLink>
+           </li>
+           <li>
+            <NavLink to='/allBooks'>allBooks</NavLink>
+           </li>
+           <li>
+            <NavLink to='/about'>About</NavLink>
+           </li>
+       
+           {user && (<>
+               <li>
+            <NavLink to='/addBook'>AddBook</NavLink>
+           </li>
+           <li>
+            <NavLink to='/myBooks'>myBooks</NavLink>
+           </li>
+       
+           <li>
+             <NavLink to='/profile'>Profile</NavLink>
+           </li></>)}
+         </ul>
       
       </div>
       {/* Contact Info */}
