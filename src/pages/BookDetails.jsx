@@ -19,6 +19,7 @@ const BookDetails = () => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const [hoveredStar, setHoveredStar] = useState(null);
+  // console.log(loadedBook);
   // console.log("upvoted by ", upvote);
   useEffect(() => {
     setUpvote(book.upvote.includes(user?.email));
@@ -80,6 +81,14 @@ const BookDetails = () => {
   };
   const handleAddReview = async () => {
     if (!user?.email || rating === 0 || comment.trim().length < 10) return;
+
+    if(book.user_email==user.email){
+      return Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "You cannot review your own book!",
+      });
+    }
 
     const review = {
       reviewer_name: user.displayName || "Anonymous",
@@ -200,7 +209,9 @@ const BookDetails = () => {
                   </div>
                 </div>
               </div>
-              <p className="text-primary-content italic md:pl-5">{rev.comment}</p>
+              <p className="text-primary-content italic md:pl-5">
+                {rev.comment}
+              </p>
             </div>
           ))
         ) : (
