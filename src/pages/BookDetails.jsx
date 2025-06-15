@@ -5,6 +5,7 @@ import { useLoaderData } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const BookDetails = () => {
   const { user } = useContext(AuthContext);
@@ -30,7 +31,7 @@ const BookDetails = () => {
       });
 
     axios
-      .patch(`http://localhost:3000/upvote/${book._id}`, {
+      .patch(`https://virtual-bookshelf-server-five.vercel.app/upvote/${book._id}`, {
         email: user.email,
       })
       .then((data) => {
@@ -50,7 +51,7 @@ const BookDetails = () => {
     if (!user?.email) return;
 
     axios
-      .patch(`http://localhost:3000/updateReadingStatus/${book._id}`, {
+      .patch(`https://virtual-bookshelf-server-five.vercel.app/updateReadingStatus/${book._id}`, {
         email: user.email,
         reading_status: newStatus,
       })
@@ -104,7 +105,7 @@ const BookDetails = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/review/${book._id}`,
+        `https://virtual-bookshelf-server-five.vercel.app/review/${book._id}`,
         review
       );
       if (res.data.modifiedCount > 0) {
@@ -135,7 +136,7 @@ const BookDetails = () => {
     if (confirm.isConfirmed) {
       try {
         const res = await axios.patch(
-          `http://localhost:3000/deleteReview/${book._id}`,
+          `https://virtual-bookshelf-server-five.vercel.app/deleteReview/${book._id}`,
           { email: reviewer_email }
         );
         if (res.data.modifiedCount > 0) {
@@ -160,6 +161,11 @@ const BookDetails = () => {
       transition={{ duration: 0.5 }}
       className="mx-auto p-4 md:p-8"
     >
+        <Helmet>
+                <title>
+                    BookShelf || {book.book_title}
+                </title>
+            </Helmet>
       {/* Book Details */}
       <div className="bg-primary-content/10 shadow-lg rounded-lg p-6 md:flex gap-6">
         <div className="md:w-1/3">

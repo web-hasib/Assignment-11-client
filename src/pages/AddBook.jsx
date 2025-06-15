@@ -30,7 +30,7 @@ const AddBook = () => {
       reviews: [],
     };
 
-    axios.post("http://localhost:3000/books", newBook)
+    axios.post("https://virtual-bookshelf-server-five.vercel.app/books", newBook)
         .then((res) => {
         if (res.data.insertedId) {
             Swal.fire({

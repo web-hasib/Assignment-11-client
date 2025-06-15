@@ -13,7 +13,7 @@ const EditBook = () => {
   // Fetch book by ID
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/books/${id}`)
+      .get(`https://virtual-bookshelf-server-five.vercel.app/books/${id}`)
       .then((res) => setBookData(res.data))
       .catch((err) => console.error(err));
   }, [id]);
@@ -33,7 +33,7 @@ const EditBook = () => {
     };
 
     axios
-      .patch(`http://localhost:3000/books/${id}`, updatedBook)
+      .patch(`https://virtual-bookshelf-server-five.vercel.app/books/${id}`, updatedBook)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           Swal.fire({
@@ -59,7 +59,7 @@ const EditBook = () => {
   return (
     <Slide>
       <Helmet>
-        <title>Edit Book</title>
+        <title>Bookshelf || Edit Book</title>
       </Helmet>
 
       <div className="p-6 md:p-12">

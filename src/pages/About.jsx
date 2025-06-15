@@ -11,6 +11,7 @@ import {
   FaUser,
   FaTools,
 } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const About = () => {
   return (
@@ -20,6 +21,11 @@ const About = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
+        <Helmet>
+                <title>
+                    BookShelf || About 
+                </title>
+            </Helmet>
       {/* Title */}
       <motion.h1
         className="text-lg md:text-4xl font-bold text-center primary text-primary mb-8 flex items-center justify-center gap-3"

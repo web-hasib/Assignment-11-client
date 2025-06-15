@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import empty from '../assets/lottie/empty.json'
 import Lottie from "lottie-react";
+import { Helmet } from "react-helmet";
+import Loading from "./Loading";
 
 const Profile = () => {
   const { user, updateUser } = use(AuthContext);
@@ -16,6 +18,7 @@ const Profile = () => {
   const [photo, setPhoto] = useState(user.photoURL || "");
   const [showDetails, setShowDetails] = useState(false);
   const [chartData, setChartData] = useState([]);
+  const [loading, setLoading] = useState(true)
 
 
   const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
@@ -35,7 +38,7 @@ const TriangleBar = (props) => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/mybooks/${user.email}`,{
+        const res = await axios.get(`https://virtual-bookshelf-server-five.vercel.app/mybooks/${user.email}`,{
           headers: {
             authorization: `Bearer ${user.accessToken}`,
           },
@@ -58,6 +61,7 @@ const TriangleBar = (props) => {
         }));
 
         setChartData(formattedData);
+        setLoading(false)
       } catch (error) {
         console.error("Failed to fetch chart data:", error);
       }
@@ -81,9 +85,22 @@ const TriangleBar = (props) => {
       Swal.fire("Error", "Update failed: " + error.message, "error");
     }
   };
+  if(loading){
+    return (
+      <div>
+        {/* <h1>loading ............</h1> */}
+        <Loading></Loading>
+      </div>
+    )
+  }
 
   return (
     <motion.div className="max-w-7xl mx-auto py-10">
+        <Helmet>
+                <title>
+                    BookShelf || {user.displayName || "User"}
+                </title>
+            </Helmet>
       {/* profil  */}
       <Fade cascade damping={0.1}>
         <motion.h1
