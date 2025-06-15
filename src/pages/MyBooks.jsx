@@ -9,13 +9,20 @@ import Empty from './Empty';
 
 const MyBooks = () => {
   const [data, setData] = useState([]);
+  // need to implement loading state 
+  
   const { user } = use(AuthContext);
   const navigate = useNavigate();
+  // console.log(user.accessToken);
 
   const fetchBooks = () => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/books?email=${user.email}`)
+        .get(`http://localhost:3000/books?email=${user.email} `,{
+          headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        })
         .then((res) => setData(res.data))
         .catch((err) => console.error(err));
     }

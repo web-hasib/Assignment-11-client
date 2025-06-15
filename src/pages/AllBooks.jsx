@@ -6,26 +6,33 @@ import "react-tabs/style/react-tabs.css";
 import { Slide } from "react-awesome-reveal";
 import { Helmet } from "react-helmet";
 
+
 const AllBooks = () => {
   const initialBooks = useLoaderData();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [searchText, setSearchText] = useState("");
-
+  
   const categories = ["All", ...new Set(initialBooks.map((b) => b.book_category))];
-  // const currentCategory = categories[activeTabIndex];
+  const [readingStatus, setReadingStatus] = useState("");
+
+
 
   const getBooksByCategory = (category) => {
-    const books = category === "All"
-      ? initialBooks
-      : initialBooks.filter((book) => book.book_category === category);
+  let books = category === "All"
+    ? initialBooks
+    : initialBooks.filter((book) => book.book_category === category);
 
-    return books.filter((book) =>
-      book.book_title.toLowerCase().includes(searchText.toLowerCase())
-    );
-  };
+  if (readingStatus) {
+    books = books.filter((book) => book.reading_status === readingStatus);
+  }
+
+  return books.filter((book) =>
+    book.book_title.toLowerCase().includes(searchText.toLowerCase())
+  );
+};
 
   return (
-    <Slide direction="right">
+    <Slide direction="right" className="relative">
       <Helmet>
         <title>Bookshelf || all</title>
       </Helmet>
@@ -41,6 +48,33 @@ const AllBooks = () => {
             className="input input-primary text-secondary-content rounded-3xl border-dashed w-full  max-w-md"
           />
         </div>
+        {/* Filter by Reading Status */}
+<div className="text-center mb-4 md:hidden">
+  <select
+    value={readingStatus}
+    onChange={(e) => setReadingStatus(e.target.value)}
+    className="select select-bordered w-full max-w-xs"
+  >
+    <option value="">All Status</option>
+    <option value="Unread">Unread</option>
+    <option value="Reading">Reading</option>
+    <option value="Read">Read</option>
+  </select>
+</div>
+{/* Repited  */}
+<div className="text-center mb-4 absolute right-2 top-4 hidden md:block">
+  <select
+    value={readingStatus}
+    onChange={(e) => setReadingStatus(e.target.value)}
+    className="select select-bordered w-full max-w-xs"
+  >
+    <option value="">All Status</option>
+    <option value="Unread">Unread</option>
+    <option value="Reading">Reading</option>
+    <option value="Read">Read</option>
+  </select>
+</div>
+
 
         <Tabs selectedIndex={activeTabIndex} onSelect={(index) => setActiveTabIndex(index)}>
           <TabList className="flex flex-wrap justify-center gap-2 mb-6">

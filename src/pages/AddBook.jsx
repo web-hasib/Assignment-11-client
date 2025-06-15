@@ -117,16 +117,22 @@ const AddBook = () => {
                 required
               />
             </div>
+        
             <div>
-              <label className="label font-bold text-gray-400">Category</label>
-              <input
-                type="text"
-                name="book_category"
-                className="input input-bordered border-gray-100 w-full"
-                placeholder="Fiction, History, etc."
-                required
-              />
-            </div>
+  <label className="label font-bold text-gray-400">Category</label>
+  <select
+    name="book_category"
+    className="select select-bordered border-gray-100 w-full"
+    required
+  >
+    <option value="">Select a category</option>
+    <option value="Fiction">Fiction</option>
+    <option value="Non-Fiction">Non-Fiction</option>
+    <option value="Fantasy">Fantasy</option>
+    <option value="Finance">Finance</option>
+  </select>
+</div>
+
             <div>
               <label className="label font-bold text-gray-400">
                 Reading Status
