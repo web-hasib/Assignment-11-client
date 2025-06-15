@@ -1,40 +1,45 @@
 import React, { use, useEffect, useState } from "react";
 
-
 import { Link, NavLink } from "react-router";
 import Swal from "sweetalert2";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { AuthContext } from "../Provider/AuthProvider";
 
-
 const NavBar = () => {
   const { user, logOut } = use(AuthContext);
   const [isDark, setIsDark] = useState(false);
   const links = (
-  <>
-    <li>
-     <NavLink to='/'>Home</NavLink>
-    </li>
-    <li>
-     <NavLink to='/allBooks'>allBooks</NavLink>
-    </li>
-    <li>
-     <NavLink to='/about'>About</NavLink>
-    </li>
+    <>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/allBooks">allBooks</NavLink>
+      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/addBook">AddBook</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myBooks">myBooks</NavLink>
+          </li>
 
-    {user && (<>
-        <li>
-     <NavLink to='/addBook'>AddBook</NavLink>
-    </li>
-    <li>
-     <NavLink to='/myBooks'>myBooks</NavLink>
-    </li>
+          <li>
+            <NavLink to="/profile">Profile</NavLink>
+          </li>
+        </>
+      )}
+      <li>
+        <NavLink to="/about">About</NavLink>
+      </li>
+      
+      <li>
+        <NavLink to="/contact">Contact</NavLink>
+      </li>
 
-    <li>
-      <NavLink to='/profile'>Profile</NavLink>
-    </li></>)}
-  </>
-);
+    </>
+  );
 
   useEffect(() => {
     const currentTheme = localStorage.getItem("theme");

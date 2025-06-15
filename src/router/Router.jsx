@@ -13,8 +13,10 @@ import AddBook from "../pages/AddBook";
 import MyBooks from "../pages/MyBooks";
 import EditBook from "../pages/EditBook";
 import About from "../pages/About";
+import Contact from "../pages/Contact";
 
 export const router = createBrowserRouter([
+    
     {
         path: '/',
         Component: MainLayout,
@@ -63,13 +65,13 @@ export const router = createBrowserRouter([
             {
                 path:'about',
                 Component: About
+            },{
+                path:'contact',
+                Component:Contact
             }
         ]
     },
-// {
-// path:'2',
-// element:<Login></Login>
-// },
+
     {
         path:'*',
         element: <Error/>

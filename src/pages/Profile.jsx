@@ -6,6 +6,8 @@ import { Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveCo
 import { IoBookSharp } from "react-icons/io5";
 import Swal from "sweetalert2";
 import axios from "axios";
+import empty from '../assets/lottie/empty.json'
+import Lottie from "lottie-react";
 
 const Profile = () => {
   const { user, updateUser } = use(AuthContext);
@@ -33,8 +35,13 @@ const TriangleBar = (props) => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/books?email=${user.email}`);
+        const res = await axios.get(`http://localhost:3000/mybooks/${user.email}`,{
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+          },
+        });
         const books = res.data;
+        console.log(res.data);
 
         const categoryCount = {};
         books.forEach(book => {
@@ -144,7 +151,7 @@ const TriangleBar = (props) => {
                 <p><span className="font-semibold">Email:</span> {user.email}</p>
                 <p><span className="font-semibold">Email Verified:</span> {user.emailVerified ? "Yes" : "No"}</p>
 
-                <div className="pt-4 space-y-5 space-x-2">
+                <div className="pt-4 flex flex-col md:flex-row space-y-5 space-x-2">
                   <button onClick={() => setEditing(true)} className="btn btn-primary w-full md:w-auto">
                     Edit Profile
                   </button>
@@ -197,7 +204,10 @@ const TriangleBar = (props) => {
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <p className="text-center text-gray-500">No data to display.</p>
+          <div>
+            <p className="text-center text-gray-500">No data to display.</p>
+ <Lottie style={{height:'260px'}} animationData={empty} loop={true} />
+          </div>
         )}
       </motion.div>
     

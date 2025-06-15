@@ -117,7 +117,7 @@ const BookDetails = () => {
         setRating(0);
       }
     } catch (error) {
-      Swal.fire("Error", "Failed to submit review", "error");
+      Swal.fire("Error", "Failed to submit review", error.message);
     }
   };
 
@@ -148,7 +148,7 @@ const BookDetails = () => {
           }));
         }
       } catch (error) {
-        Swal.fire("Error", "Failed to delete review", "error");
+        Swal.fire("Error", "Failed to delete review", error.message);
       }
     }
   };

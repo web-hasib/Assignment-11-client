@@ -6,10 +6,13 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Empty from './Empty';
+import Loading from "./Loading";
+import { Helmet } from "react-helmet";
 
 const MyBooks = () => {
   const [data, setData] = useState([]);
   // need to implement loading state 
+  const [loading, setLoading] = useState(true);
   
   const { user } = use(AuthContext);
   const navigate = useNavigate();
@@ -18,19 +21,22 @@ const MyBooks = () => {
   const fetchBooks = () => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/books?email=${user.email} `,{
+        .get(`http://localhost:3000/mybooks/${user.email} `,{
           headers: {
           authorization: `Bearer ${user.accessToken}`,
         },
         })
-        .then((res) => setData(res.data))
+        .then((res) => {
+          setData(res.data);
+          setLoading(false);
+        })
         .catch((err) => console.error(err));
     }
   };
 
   useEffect(() => {
     fetchBooks();
-  }, [user?.email]);
+  }, []);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -59,6 +65,13 @@ const MyBooks = () => {
     navigate(`/editBook/${id}`);
   };
 
+  if (loading) {
+    return(
+      <Loading/>
+      // <h1>loadsksjfkj ...........</h1>
+    )
+  }
+
   if(data.length === 0) {
     return (
      <Empty/>
@@ -67,6 +80,9 @@ const MyBooks = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Bookshelf || My books</title>
+      </Helmet>
       <h1 className="text-2xl text-primary text-center py-5 primary font-bold mb-4">My books: {data.length}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.map((book) => (

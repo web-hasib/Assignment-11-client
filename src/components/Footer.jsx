@@ -1,9 +1,9 @@
 import React, { use } from "react";
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaEnvelope, FaFacebook, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhoneAlt, FaTwitter } from "react-icons/fa";
 import { NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 
-const Footer = ({ theme }) => {
+const Footer = () => {
   const {user} = use(AuthContext);
   return (
     <footer
@@ -25,42 +25,57 @@ const Footer = ({ theme }) => {
           </a>
       </div>
       <div className="">
-         <ul className="flex gap-3">
-           <li>
-            <NavLink to='/'>Home</NavLink>
-           </li>
-           <li>
-            <NavLink to='/allBooks'>allBooks</NavLink>
-           </li>
-           <li>
-            <NavLink to='/about'>About</NavLink>
-           </li>
        
-           {user && (<>
+         
+             <ul className="flex gap-3">
                <li>
-            <NavLink to='/addBook'>AddBook</NavLink>
-           </li>
-           <li>
-            <NavLink to='/myBooks'>myBooks</NavLink>
-           </li>
-       
-           <li>
-             <NavLink to='/profile'>Profile</NavLink>
-           </li></>)}
-         </ul>
+                 <NavLink to="/">Home</NavLink>
+               </li>
+               <li>
+                 <NavLink to="/allBooks">allBooks</NavLink>
+               </li>
+               {user && (
+                 <>
+                   <li>
+                     <NavLink to="/addBook">AddBook</NavLink>
+                   </li>
+                   <li>
+                     <NavLink to="/myBooks">myBooks</NavLink>
+                   </li>
+         
+                   <li>
+                     <NavLink to="/profile">Profile</NavLink>
+                   </li>
+                 </>
+               )}
+               <li>
+                 <NavLink to="/about">About</NavLink>
+               </li>
+               
+               <li>
+                 <NavLink to="/contact">Contact</NavLink>
+               </li>
+         
+             </ul>
+         
       
       </div>
       {/* Contact Info */}
-      <div className="text-center">
-        <p className="text-sm text-gray-600">
-          📧 Email:{" "}
-          <a className="hover:underline text-blue-500">jrweb.hasib@gmail.com</a>
-        </p>
-        <p className="text-sm text-gray-600">
-          📞 Phone:{" "}
-          <a className="hover:underline text-blue-500">+880 1234 567 890</a>
-        </p>
-      </div>
+      
+      <div className="text-base-content text-[8px] md:text-[10px] lg:text-sm">
+                    <div className="flex items-center gap-4">
+                  <FaPhoneAlt className="text-blue-600" />
+                  <span>+880 1234 567 890</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <FaEnvelope className="text-blue-600" />
+                  <span>support@virtualbookshelf.com</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <FaMapMarkerAlt className="text-blue-600" />
+                  <span>Natore , Bangladesh</span>
+                </div>
+              </div>
       <nav>
           {/* Terms + Links */}
         <div className="mb-4">
