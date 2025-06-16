@@ -204,7 +204,7 @@ const BookDetails = () => {
               value={book.reading_status}
               onChange={(e) => handleReadingStatusUpdate(e.target.value)}
             >
-              <option value="Want-to-Read">Want to Read</option>
+              <option value="Unread">Unread</option>
               <option value="Reading">Reading</option>
               <option value="Read">Read</option>
             </select>
@@ -212,49 +212,7 @@ const BookDetails = () => {
         </div>
       </div>
 
-      {/* All Reviews
-      <div className="mt-12 bg-accent/5 shadow-md rounded-xl p-6 max-w-7xl mx-auto">
-        <h2 className="text-2xl font-bold text-primary mb-6">User Reviews</h2>
-        {book.reviews?.length > 0 ? (
-          book.reviews.map((rev, index) => (
-            <div
-              key={index}
-              className="border-b border-gray-200/50 border-dashed pb-4 mb-4 last:border-none"
-            >
-              <div className="flex items-center mb-2 justify-between">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-secondary-content/40 flex items-center justify-center font-bold text-white mr-3">
-                    {rev.reviewer_name?.charAt(0) || "U"}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-secondary-content">{rev.reviewer_name}</p>
-                    <div className="flex text-yellow-400">
-                      {Array(rev.rating || 0)
-                        .fill()
-                        .map((_, i) => (
-                          <FaStar key={i} />
-                        ))}
-                    </div>
-                  </div>
-                </div>
-
-                {rev.reviewer_email === user?.email && (
-                  <button
-                    onClick={handleDeleteReview}
-                    className="text-error hover:text-red-600"
-                    title="Delete Review"
-                  >
-                    <FaTrash />
-                  </button>
-                )}
-              </div>
-              <p className="text-primary-content italic md:pl-5">{rev.comment}</p>
-            </div>
-          ))
-        ) : (
-          <p className="text-gray-500">No reviews yet.</p>
-        )}
-      </div> */}
+     
        {/* All Reviews */}
       <div className="mt-12 bg-accent/5 shadow-md rounded-xl p-6 max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold text-primary mb-6">User Reviews</h2>
