@@ -1,18 +1,15 @@
 # 📚 Virtual Bookshelf (Client Side)
-
-**Live Site:** [https://virtual-bookshelf-4f14f.web.app/](https://virtual-bookshelf-4f14f.web.app/)
-**server Live :** [https://virtual-bookshelf-server-five.vercel.app/]([https://virtual-bookshelf-4f14f.web.app/](https://virtual-bookshelf-server-five.vercel.app/))
-**server ripo:** [https://github.com/web-hasib/Assignment-11-server](https://github.com/web-hasib/Assignment-11-server)
+**Live Site:** [https://virtual-bookshelf-4f14f.web.app/](https://virtual-bookshelf-4f14f.web.app/) </br>
+**Server Live:** [https://virtual-bookshelf-server-five.vercel.app/](https://virtual-bookshelf-server-five.vercel.app/)</br>
+**Server Repository:** [https://github.com/web-hasib/Assignment-11-server](https://github.com/web-hasib/Assignment-11-server)</br>
 
 Welcome to **Virtual Bookshelf** — a dynamic web application where users can organize, track, and explore books. Built with React, Tailwind CSS, Firebase Auth, and MongoDB-backed API, this project is designed to test and demonstrate your frontend and full-stack capabilities.
 
 ---
 
 ## 🚀 Project Overview
-
 **Purpose:**  
 Create a user-friendly digital bookshelf that allows readers to:
-
 - 📥 Add books to their virtual shelf
 - 💬 Write and manage reviews
 - 📈 Track reading progress
@@ -24,7 +21,6 @@ It helps avid readers organize their reading habits and discover new titles via 
 ---
 
 ## 🧰 Tech Stack
-
 | Area            | Tech                          |
 |-----------------|-------------------------------|
 | Frontend        | React, Tailwind CSS, Framer Motion |
@@ -35,7 +31,6 @@ It helps avid readers organize their reading habits and discover new titles via 
 ---
 
 ## 🧑‍💻 Features
-
 - 🔐 Authentication: Login/register using Firebase
 - 📚 Book Management: Add, edit, delete your own books
 - 📈 Profile Chart: See book stats by category
@@ -50,7 +45,6 @@ It helps avid readers organize their reading habits and discover new titles via 
 ---
 
 ## 🌐 Routes and Pages
-
 | Route | Description |
 |-------|-------------|
 | `/` | Home with banner, popular books, featured categories, extra sections |
@@ -67,8 +61,100 @@ It helps avid readers organize their reading habits and discover new titles via 
 
 ---
 
-## 📦 Packages Used
+## 🛠️ Local Development Setup
 
+### Prerequisites
+Before running this project locally, make sure you have the following installed:
+- **Node.js** (v16.0.0 or higher)
+- **npm** or **yarn** package manager
+- **Git** for version control
+
+### Step 1: Clone the Repository
+```bash
+# Clone the client-side repository
+git clone https://github.com/web-hasib/your-client-repo-name.git
+cd your-client-repo-name
+
+# Also clone the server-side repository
+git clone https://github.com/web-hasib/Assignment-11-server.git
+```
+
+### Step 2: Install Dependencies
+```bash
+# Install client dependencies
+npm install
+# or
+yarn install
+```
+
+### Step 3: Environment Configuration
+Create a `.env.local` file in the root directory and add your Firebase configuration:
+
+```env
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_firebase_app_id
+VITE_SERVER_URL=http://localhost:3000
+```
+
+### Step 4: Setup the Server
+```bash
+# Navigate to server directory
+cd ../Assignment-11-server
+
+# Install server dependencies
+npm install
+
+# Create .env file for server
+echo "PORT=3000
+MONGODB_URI=your_mongodb_connection_string
+FIREBASE_SERVICE_ACCOUNT_KEY=your_firebase_service_account_json" > .env
+
+# Start the server
+npm start
+```
+
+### Step 5: Run the Client Application
+```bash
+# Navigate back to client directory
+cd ../your-client-repo-name
+
+# Start the development server
+npm run dev
+# or
+yarn dev
+```
+
+### Step 6: Access the Application
+- **Client:** Open [http://localhost:5173](http://localhost:5173) in your browser
+- **Server:** API will be running on [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🚀 Available Scripts
+
+In the project directory, you can run:
+
+### `npm run dev`
+Runs the app in development mode using Vite. The page will reload when you make changes.
+
+### `npm run build`
+Builds the app for production to the `dist` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
+
+### `npm run preview`
+Serves the production build locally for testing before deployment.
+
+### `npm run lint`
+Runs ESLint to check for code quality issues and potential errors.
+
+---
+
+## 📦 Dependencies
+
+### Main Dependencies
 ```json
 {
   "dependencies": {
@@ -90,7 +176,13 @@ It helps avid readers organize their reading habits and discover new titles via 
     "recharts": "^2.15.3",
     "sweetalert2": "^11.22.0",
     "tailwindcss": "^4.1.8"
-  },
+  }
+}
+```
+
+### Development Dependencies
+```json
+{
   "devDependencies": {
     "@eslint/js": "^9.25.0",
     "@types/react": "^19.1.2",
@@ -104,3 +196,56 @@ It helps avid readers organize their reading habits and discover new titles via 
     "vite": "^6.3.5"
   }
 }
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### Common Issues:
+
+1. **Port Already in Use:**
+   ```bash
+   # Kill process on port 5173
+   npx kill-port 5173
+   ```
+
+2. **Environment Variables Not Loading:**
+   - Make sure your `.env.local` file is in the root directory
+   - Restart the development server after adding new environment variables
+
+3. **Firebase Authentication Issues:**
+   - Verify your Firebase configuration in the `.env.local` file
+   - Check if your Firebase project has the correct authentication methods enabled
+
+4. **Server Connection Issues:**
+   - Ensure the server is running on port 5000
+   - Check if `VITE_SERVER_URL` in `.env.local` matches your server URL
+
+---
+
+## 🌟 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 🤝 Support
+
+If you have any questions or run into issues, please feel free to:
+- Open an issue on GitHub
+- Contact me at [jrweb.hasib@gmail.com](mailto:jrweb.hasib@gmail.com)
+
+---
+
+**Happy Coding! 📚✨**
