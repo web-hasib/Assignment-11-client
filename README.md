@@ -1,14 +1,18 @@
-# 📚 Virtual Bookshelf (Client Side)
+# 📚 Virtual Bookshelf (Client + Server)
 
-**Live Site:** [https://virtual-bookshelf-4f14f.web.app/](https://virtual-bookshelf-4f14f.web.app/)
+**Client Live Site:** [https://virtual-bookshelf-4f14f.web.app/](https://virtual-bookshelf-4f14f.web.app/)\
+**Server Repository:** [https://github.com/web-hasib/Assignment-11-server](https://github.com/web-hasib/Assignment-11-server)\
+**Server Live Site:** [https://virtual-bookshelf-server-five.vercel.app/](https://virtual-bookshelf-server-five.vercel.app/)
 
-Welcome to **Virtual Bookshelf** — a dynamic web application where users can organize, track, and explore books. Built with React, Tailwind CSS, Firebase Auth, and MongoDB-backed API, this project is designed to test and demonstrate your frontend and full-stack capabilities.
+---
+
+Welcome to **Virtual Bookshelf** — a dynamic web application where users can organize, track, and explore books. Built with React, Tailwind CSS, Firebase Auth, and a MongoDB-backed API, this project demonstrates strong frontend and full-stack capabilities.
 
 ---
 
 ## 🚀 Project Overview
 
-**Purpose:**  
+**Purpose:**\
 Create a user-friendly digital bookshelf that allows readers to:
 
 - 📥 Add books to their virtual shelf
@@ -16,19 +20,19 @@ Create a user-friendly digital bookshelf that allows readers to:
 - 📈 Track reading progress
 - 🔼 Upvote and explore popular books
 
-**Why this matters:**  
+**Why this matters:**\
 It helps avid readers organize their reading habits and discover new titles via community input and book stats.
 
 ---
 
 ## 🧰 Tech Stack
 
-| Area            | Tech                          |
-|-----------------|-------------------------------|
-| Frontend        | React, Tailwind CSS, Framer Motion |
-| Backend         | Node.js, Express.js, MongoDB  |
-| Authentication  | Firebase (Email/Password, Google) |
-| Deployment      | Vercel / Firebase (client), Render / Vercel (server) |
+| Area           | Tech                                        |
+| -------------- | ------------------------------------------- |
+| Frontend       | React, Tailwind CSS, Framer Motion          |
+| Backend        | Node.js, Express.js, MongoDB                |
+| Authentication | Firebase (Email/Password, Google)           |
+| Deployment     | Vercel / Firebase (client), Vercel (server) |
 
 ---
 
@@ -40,32 +44,32 @@ It helps avid readers organize their reading habits and discover new titles via 
 - 💬 Review System: One review per user per book
 - 🔎 Filter/Search: Search books by title or author, filter by reading status
 - 🔼 Upvote: Vote for favorite books (excluding your own)
-- 🧭 Routing: Protected/private routes using React Router
+- 🗑️ Routing: Protected/private routes using React Router
 - 🧪 Responsive: Mobile-first design using Tailwind CSS
-- 🌀 Animations: Smooth transitions using Framer Motion
+- 🔀 Animations: Smooth transitions using Framer Motion
 - 🗂️ Category Filter: Filter books by Fiction, Non-Fiction, Fantasy, Finance
 
 ---
 
 ## 🌐 Routes and Pages
 
-| Route | Description |
-|-------|-------------|
-| `/` | Home with banner, popular books, featured categories, extra sections |
-| `/allBooks` | Public book list with filters and search |
-| `/books/:id` | Book details page (upvote, review, status tracker) |
-| `/addBook` 🔒 | Add a new book |
-| `/editBook/:id` 🔒 | Edit existing book |
-| `/mybooks` 🔒 | Manage books added by logged-in user |
-| `/profile` 🔒 | User info + pie chart |
-| `/login` / `/register` | Firebase Auth pages |
-| `*` | 404 page with animation and home link |
+| Route                  | Description                                                          |
+| ---------------------- | -------------------------------------------------------------------- |
+| `/`                    | Home with banner, popular books, featured categories, extra sections |
+| `/allBooks`            | Public book list with filters and search                             |
+| `/books/:id`           | Book details page (upvote, review, status tracker)                   |
+| `/addBook` 🔒          | Add a new book                                                       |
+| `/editBook/:id` 🔒     | Edit existing book                                                   |
+| `/mybooks` 🔒          | Manage books added by logged-in user                                 |
+| `/profile` 🔒          | User info + pie chart                                                |
+| `/login` / `/register` | Firebase Auth pages                                                  |
+| `*`                    | 404 page with animation and home link                                |
 
 🔒 = Private Route (requires authentication)
 
 ---
 
-## 📦 Packages Used
+## 📦 Packages Used (Client Side)
 
 ```json
 {
@@ -102,3 +106,90 @@ It helps avid readers organize their reading habits and discover new titles via 
     "vite": "^6.3.5"
   }
 }
+```
+
+---
+
+## 🛠️ Local Setup
+
+### ✅ Client Side Setup
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/web-hasib/Assignment-11-client.git
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env` file and add your Firebase configuration and API base URL like:
+
+```env
+VITE_API_URL=http://localhost:5000
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_firebase_app_id
+```
+
+4. Run the development server:
+
+```bash
+npm run dev
+```
+
+Client will run on: `http://localhost:5173/`
+
+---
+
+### ✅ Server Side Setup
+
+1. Clone the server repository:
+
+```bash
+git clone https://github.com/web-hasib/Assignment-11-server.git
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env` file and add:
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+```
+
+4. Run the server:
+
+```bash
+npm start
+```
+
+Server will run on: `http://localhost:5000/`
+
+---
+
+## 🔗 Deployment
+
+- **Client:** Firebase Hosting
+- **Server:** Vercel
+- **Client Live:** [https://virtual-bookshelf-4f14f.web.app/](https://virtual-bookshelf-4f14f.web.app/)
+- **Server Live:** [https://virtual-bookshelf-server-five.vercel.app/](https://virtual-bookshelf-server-five.vercel.app/)
+
+---
+
+## ✨ Author
+
+Hasibul Islam\
+[GitHub Profile](https://github.com/web-hasib)
+
