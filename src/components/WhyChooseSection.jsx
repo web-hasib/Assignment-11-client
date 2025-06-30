@@ -92,7 +92,7 @@ const WhyChooseSection = () => {
 
   return (
     <section className="py-16 bg-base-100" ref={ref}>
-      <div className="container mx-auto px-4 text-center">
+      <div className=" mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold mb-4 text-primary primary py-5">
           Why Choose Virtual Bookshelf?
         </h2>
@@ -114,7 +114,7 @@ const WhyChooseSection = () => {
               <div className="text-4xl mb-2 flex items-center justify-center p-3 text-base-500">
                 <stat.icon />
               </div>
-              <div className="text-3xl font-bold text-secondary-content mb-3">
+              <div className="text-3xl font-bold text-primary-content mb-3">
                 {counts[index].toLocaleString()}
               </div>
               <p className="text-sm text-base-content">{stat.label}</p>

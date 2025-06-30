@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer
      
-      className="footer footer-horizontal footer-center  text-base-content rounded pt-10 pb-5 border-t border-primary border-dashed"
+      className="footer footer-horizontal footer-center  text-base-content rounded pt-10 gap-4 md:gap-6 pb-5 border-t border-primary border-dashed"
     >
       <div className="flex items-center gap-3">
         <a
@@ -24,7 +24,7 @@ const Footer = () => {
             BookShelf
           </a>
       </div>
-      <div className="">
+      <div className=" text-[8px] md:text-[10px] lg:text-sm">
        
          
              <ul className="flex gap-3">
@@ -62,7 +62,7 @@ const Footer = () => {
       </div>
       {/* Contact Info */}
       
-      <div className="text-base-content text-[8px] md:text-[10px] lg:text-sm">
+      <div className="text-base-content text-[8px] md:text-[10px] lg:text-sm ">
                     <div className="flex items-center gap-4">
                   <FaPhoneAlt className="text-blue-600" />
                   <span>+880 1234 567 890</span>
@@ -78,7 +78,7 @@ const Footer = () => {
               </div>
       <nav>
           {/* Terms + Links */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <h3 className="font-semibold text-lg mb-2">Resources</h3>
           <div className="flex items-center text-xs gap-2 flex-col md:flex-row">
             <a href="#" className="block hover:underline">Terms & Conditions</a>
@@ -86,7 +86,7 @@ const Footer = () => {
           <a href="#" className="block hover:underline">FAQs</a>
           <a href="#" className="block hover:underline">Support</a>
           </div>
-        </div>
+        </div> */}
         {/* Social Media Links */}
         <div className="flex justify-center md:justify-end space-x-4 text-xl">
           <a
@@ -124,7 +124,7 @@ const Footer = () => {
         </div>
       </nav>
       <aside className="w-full">
-        <p className="text-xs font-thin italic text-gray-400">
+        <p className="text-[8px] md:text-[10px] lg:text-sm font-thin italic text-gray-400">
           Copyright © {new Date().getFullYear()} - All right reserved by Hasib
           Industries Ltd
         </p>

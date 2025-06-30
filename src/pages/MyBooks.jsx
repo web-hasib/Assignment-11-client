@@ -79,12 +79,12 @@ const MyBooks = () => {
   }
 
   return (
-    <div className="py-10">
+    <div className="py-10 max-w-7xl mx-auto">
       <Helmet>
         <title>Bookshelf || My books</title>
       </Helmet>
       <h1 className="text-2xl text-primary text-center py-5 primary font-bold mb-4">My books: {data.length}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="px-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.map((book) => (
           <div
             key={book._id}

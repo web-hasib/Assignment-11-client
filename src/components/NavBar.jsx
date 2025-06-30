@@ -74,7 +74,7 @@ const NavBar = () => {
       });
   };
   return (
-    <div className="bg-base-300/50 sticky top-0 z-1 shadow-sm ">
+    <div className="bg-base-300/90 sticky top-0 z-1 shadow-sm ">
       <div className="navbar m-0 p-0  max-w-7xl mx-auto">
         <div className="navbar-start">
           <a

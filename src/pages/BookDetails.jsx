@@ -167,7 +167,7 @@ const BookDetails = () => {
                 </title>
             </Helmet>
       {/* Book Details */}
-      <div className="bg-primary-content/10 shadow-lg rounded-lg p-6 md:flex gap-6">
+      <div className="bg-primary-content/5 max-w-7xl mx-auto shadow-lg rounded-lg p-6 md:flex gap-6">
         <div className="md:w-1/3">
           <img
             src={book.cover_photo}
@@ -177,12 +177,12 @@ const BookDetails = () => {
         </div>
         <div className="md:w-2/3">
           <h1 className="text-3xl primary font-bold mb-2">{book.book_title}</h1>
-          <p className="text-secondary-content/55 text-sm mb-2">by {book.book_author}</p>
-          <p className="text-secondary-content/55 text-sm mb-2">Category: {book.book_category}</p>
-          <p className="text-secondary-content/55 text-sm mb-2">Total Pages: {book.total_page}</p>
-          <p className="text-secondary-content/55 text-sm mb-2">Status: {book.reading_status}</p>
-          <p className="text-secondary-content/55 text-sm mb-4">Overview: {book.book_overview}</p>
-          <p className="text-secondary-content/55 text-sm mb-4">
+          <p className="text-primary-content text-sm mb-2">by {book.book_author}</p>
+          <p className="text-primary-content text-sm mb-2">Category: {book.book_category}</p>
+          <p className="text-primary-content text-sm mb-2">Total Pages: {book.total_page}</p>
+          <p className="text-primary-content text-sm mb-2">Status: {book.reading_status}</p>
+          <p className="text-primary-content text-sm mb-4">Overview: {book.book_overview}</p>
+          <p className="text-primary-content text-sm mb-4">
             Added by: {book.user_name} ({book.user_email})
           </p>
 
@@ -198,7 +198,7 @@ const BookDetails = () => {
 
           {/* Reading Status */}
           <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Update Reading Status:</label>
+            <label className="block text-base-400 mb-2">Update Reading Status:</label>
             <select
               className="border rounded-lg p-2"
               value={book.reading_status}

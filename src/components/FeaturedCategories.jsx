@@ -61,7 +61,7 @@ const FeaturedCategories = () => {
 
   return (
     <section className="py-16 bg-base-100" ref={ref}>
-      <div className="container mx-auto px-4 text-center">
+      <div className=" mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold mb-4 primary text-primary py-5">
         Featured Categories
         </h2>
@@ -71,7 +71,7 @@ const FeaturedCategories = () => {
 
        
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6 "
           variants={containerVariants}
           initial="hidden"
           animate={controls}
@@ -80,13 +80,13 @@ const FeaturedCategories = () => {
             <Link  key={index} to={`/allBooks#${cat.name}`}>
             <motion.div
              
-              className={`p-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer ${cat.color}`}
+              className={`h-full flex flex-col justify-between p-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer ${cat.color}`}
               variants={itemVariants}
             >
               <div className="text-5xl mb-3 flex items-center text-base-400 justify-center p-3 ">
                 <cat.icon />
               </div>
-              <div className="text-2xl font-semibold text-secondary-content mb-2">
+              <div className="text-2xl font-semibold text-primary-content primary mb-2">
                 {cat.name}
               </div>
               <p className="text-xs text-base-content">{cat.description}</p>
