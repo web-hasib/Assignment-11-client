@@ -27,7 +27,7 @@ const BooksMarque = () => {
 
       {/* Make this wrapper relative and remove overflow-hidden */}
       <motion.div
-        className="w-full max-w-7xl px-5 py-10 md:py-16 relative" // 🔥 relative added, overflow-hidden removed
+        className="w-full max-w-7xl px-5 py-10 md:py-16 relative overflow-x-hidden overflow-y-visible" // 🔥 relative added, overflow-hidden removed
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 2 }}
@@ -54,7 +54,7 @@ const BooksMarque = () => {
 
           .tooltip {
             position: absolute;
-            bottom: 90%;
+            bottom: 70%;
             left: 50%;
             transform: translateX(-50%);
             
