@@ -47,8 +47,8 @@ const HomeBanner = () => {
     setCurrentIndex((prev) => (prev + 1) % slides.length);
 
   return (
-    <div className="relative w-full  mx-auto mt-6 overflow-hidden rounded-2xl shadow-lg h-auto  md:h-[70vh]">
-       {/* md:h-72 lg:h-96 */}
+    <div className="relative w-full  mx-auto  overflow-hidden  shadow-lg h-auto  md:h-[70vh]">
+      
       <AnimatePresence mode="wait">
         {slides.map(
           (slide, i) =>

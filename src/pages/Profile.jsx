@@ -44,7 +44,7 @@ const TriangleBar = (props) => {
           },
         });
         const books = res.data;
-        console.log(res.data);
+        // console.log(res.data);
 
         const categoryCount = {};
         books.forEach(book => {

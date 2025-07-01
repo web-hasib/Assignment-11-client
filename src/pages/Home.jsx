@@ -7,6 +7,7 @@ import WhyChooseSection from '../components/WhyChooseSection';
 import FeaturedCategories from '../components/FeaturedCategories';
 import { Helmet } from 'react-helmet';
 import TestimonialCarousel from '../components/TestimonialCarousel';
+import BooksMarque from '../components/BooksMarque';
 
 const Home = () => {
     const topbooks = useLoaderData();
@@ -23,6 +24,7 @@ const Home = () => {
             <div className='max-w-7xl mx-auto'>
 <TopBooks topbooks={topbooks}></TopBooks>
             <FaqSection></FaqSection>
+            <BooksMarque></BooksMarque>
             <FeaturedCategories></FeaturedCategories>
             <TestimonialCarousel></TestimonialCarousel>
             <WhyChooseSection></WhyChooseSection>
